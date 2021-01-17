@@ -282,6 +282,7 @@ header {
 }
 
 .banner {
+  position: relative;
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -292,15 +293,37 @@ header {
           flex-direction: column;
 }
 
-.screen__element {
+.slider {
   position: relative;
-  height: 100%;
-  padding: 0 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .screen {
-  background: url("../img/banner.jpg") center/cover no-repeat;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 0 100%;
+          flex: 1 0 100%;
+  position: relative;
+  height: 600px;
+  -webkit-transition: -webkit-box-flex .5s ease-in;
+  transition: -webkit-box-flex .5s ease-in;
+  -o-transition: flex .5s ease-in;
+  transition: flex .5s ease-in;
+  transition: flex .5s ease-in, -webkit-box-flex .5s ease-in, -ms-flex .5s ease-in;
+  overflow: hidden;
+}
+
+.screen__wrapper {
   width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.screen__element {
+  height: 100%;
+  padding: 0 20px;
 }
 
 .screen__title {
@@ -341,6 +364,41 @@ header {
   left: 0;
   -webkit-box-shadow: 0px 0px 15px 0px #003052;
           box-shadow: 0px 0px 15px 0px #003052;
+}
+
+.screen:nth-child(1) {
+  background: url("../img/banner.jpg") center/cover no-repeat;
+}
+
+.screen:nth-child(2) {
+  background: url("../img/banner2.jpg") center/cover no-repeat;
+}
+
+.screen:nth-child(3) {
+  background: url("../img/banner3.jpg") center/cover no-repeat;
+}
+
+.screen:nth-child(4) {
+  background: url("../img/banner4.jpg") center/cover no-repeat;
+}
+
+.screen-no-activ {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 0px;
+          flex: 0 0 0;
+}
+
+.screen-activ {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 0 100%;
+          flex: 1 0 100%;
+}
+
+.banner__button {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
 }
 
 .nav__items {
@@ -391,6 +449,7 @@ header {
   height: 60px;
   background: rgba(255, 255, 255, 0.4);
   position: relative;
+  border-right: 1px solid rgba(255, 255, 255, 0.6);
   cursor: pointer;
 }
 
@@ -402,16 +461,21 @@ header {
   cursor: pointer;
 }
 
-.arrow__last-el {
-  background: rgba(255, 255, 255, 0.2);
-}
-
 .arrow__left:hover {
   background: rgba(255, 255, 255, 0.6);
 }
 
 .arrow__right:hover {
   background: rgba(255, 255, 255, 0.6);
+}
+
+.arrow__last-el {
+  background: rgba(255, 255, 255, 0.2);
+  cursor: auto;
+}
+
+.arrow__last-el:hover {
+  background: rgba(255, 255, 255, 0.2);
 }
 
 .arrow__right::before {
@@ -506,16 +570,15 @@ header {
   -webkit-box-flex: 1;
       -ms-flex: 1 0 30%;
           flex: 1 0 30%;
-  max-width: 350px;
   margin: 15px;
   height: 350px;
-  background: url("../img/bg-element.jpg");
+  background: url("../img/bg-element.jpg") center/cover no-repeat;
 }
 
 .services__items-element:hover {
-  background: -webkit-gradient(linear, left bottom, left top, from(rgba(1, 142, 243, 0.5)), to(rgba(1, 142, 243, 0.5))), url("../img/bg-element.jpg");
-  background: -o-linear-gradient(bottom, rgba(1, 142, 243, 0.5), rgba(1, 142, 243, 0.5)), url("../img/bg-element.jpg");
-  background: linear-gradient(0deg, rgba(1, 142, 243, 0.5), rgba(1, 142, 243, 0.5)), url("../img/bg-element.jpg");
+  background: -webkit-gradient(linear, left bottom, left top, from(rgba(1, 142, 243, 0.5)), to(rgba(1, 142, 243, 0.5))), url("../img/bg-element.jpg") center/cover no-repeat;
+  background: -o-linear-gradient(bottom, rgba(1, 142, 243, 0.5), rgba(1, 142, 243, 0.5)), url("../img/bg-element.jpg") center/cover no-repeat;
+  background: linear-gradient(0deg, rgba(1, 142, 243, 0.5), rgba(1, 142, 243, 0.5)), url("../img/bg-element.jpg") center/cover no-repeat;
 }
 
 .element {
@@ -1056,7 +1119,29 @@ header {
           align-items: center;
 }
 
+@media (min-width: 1250px) {
+  .screen {
+    height: 700px;
+  }
+
+  .screen__title {
+    width: 70%;
+  }
+}
+
+@media (min-width: 1850px) {
+  .screen {
+    height: 1000px;
+  }
+}
+
 @media (max-width: 1850px) {
+  .services__items-element {
+    -webkit-box-flex: 1;
+        -ms-flex: 1 0 30%;
+            flex: 1 0 30%;
+  }
+
   .container {
     width: 1200px;
   }
@@ -1093,6 +1178,10 @@ header {
 
   .header__nemu--item:not(:last-child) {
     margin-right: 20px;
+  }
+
+  .screen__title {
+    padding-top: 60px;
   }
 
   .services {
@@ -1320,23 +1409,24 @@ header {
   .screen__title {
     text-align: center;
     padding-top: 60px;
-    width: 100%;
+    width: 100vw;
   }
 
   .screen__btn {
     margin: 50px auto;
   }
 
-  .screen__element .nav__items {
+  .banner .nav__items {
     padding: 0;
     margin-top: 100px;
+    padding-bottom: 50px;
   }
 
-  .screen__element .point {
+  .banner .point {
     display: none;
   }
 
-  .screen__element .arrow {
+  .banner .arrow {
     margin: 0 auto;
   }
 
@@ -1478,12 +1568,18 @@ header {
   }
 }
 
-.webp .screen{ background: url(../img/banner.webp) center/cover no-repeat; }
+.webp .screen:nth-child(1){ background: url(../img/banner.webp) center/cover no-repeat; }
 
-.webp .services__items-element{ background: url(../img/bg-element.webp); }
+.webp .screen:nth-child(2){ background: url(../img/banner2.webp) center/cover no-repeat; }
 
-.webp .services__items-element:hover{ background: -webkit-gradient(linear, left bottom, left top, from(rgba(1, 142, 243, 0.5)), to(rgba(1, 142, 243, 0.5))), url(../img/bg-element.webp); }
+.webp .screen:nth-child(3){ background: url(../img/banner3.webp) center/cover no-repeat; }
 
-.webp .services__items-element:hover{ background: -o-linear-gradient(bottom, rgba(1, 142, 243, 0.5), rgba(1, 142, 243, 0.5)), url(../img/bg-element.webp); }
+.webp .screen:nth-child(4){ background: url(../img/banner4.webp) center/cover no-repeat; }
 
-.webp .services__items-element:hover{ background: linear-gradient(0deg, rgba(1, 142, 243, 0.5), rgba(1, 142, 243, 0.5)), url(../img/bg-element.webp); }
+.webp .services__items-element{ background: url(../img/bg-element.webp) center/cover no-repeat; }
+
+.webp .services__items-element:hover{ background: -webkit-gradient(linear, left bottom, left top, from(rgba(1, 142, 243, 0.5)), to(rgba(1, 142, 243, 0.5))), url(../img/bg-element.webp) center/cover no-repeat; }
+
+.webp .services__items-element:hover{ background: -o-linear-gradient(bottom, rgba(1, 142, 243, 0.5), rgba(1, 142, 243, 0.5)), url(../img/bg-element.webp) center/cover no-repeat; }
+
+.webp .services__items-element:hover{ background: linear-gradient(0deg, rgba(1, 142, 243, 0.5), rgba(1, 142, 243, 0.5)), url(../img/bg-element.webp) center/cover no-repeat; }
